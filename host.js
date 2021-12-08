@@ -1,0 +1,1 @@
+export const NTN_host = "http://192.168.1.10:9000";

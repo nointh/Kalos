@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -12,7 +12,6 @@ import { Icon } from 'react-native-elements';
 import Video from 'react-native-video';
 import { COLOR } from '../constant';
 import { SearchBar } from "react-native-elements";
-
 //Bottom Sheet
 
 import SheetExerciseDetail from "../components/SheetExerciseDetail";
@@ -21,10 +20,31 @@ import { useState } from "react";
 import SheetFilter from '../components/SheetFilter';
 
 //test data
-import exercisesData from "../assets/testData/exercisesData";
+// import exercisesData from "../assets/testData/exercisesData";
+import {NTN_host} from '../host';
+import {_EXAMPLE_TOKEN} from '../constant'
 
 function ExerciseScreen() {
-
+    const ExerciseURL = NTN_host + "/api/exercises";
+    const [exercisesData, setExercisesData] = useState([]);
+    // fetch exercise data 
+    useEffect(()=>{
+        try{
+            fetch(ExerciseURL)
+            .then(response => response.json())
+            .then((data) =>{
+                setExercisesData(data["exercises"]);
+            })
+            .catch((e) =>{
+                console.log(e);
+                throw e            
+            })
+        }
+        catch(e) 
+        {
+            console.log("there is errors " + error);
+        }
+    });
     //render exercise item
     const renderExerciseItem = ({ item }) => {
         return (
@@ -34,13 +54,14 @@ function ExerciseScreen() {
                 <View style={styles.exerciseLeftWrapper}>
                     <Image
                         style={styles.exerciseImage}
-                        source={require('../assets/images/InclinePushUps.png')}
+                        // source={require('../assets/images/InclinePushUps.png')}
+                        source={{uri: item.image}}
                     ></Image>
                 </View>
                 <View style={styles.exerciseRightWrapper}>
                     <Text
                         style={styles.exerciseName}
-                        numberOfLines={2}>{item.exercise}
+                        numberOfLines={2}>{item.name}
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -89,7 +110,7 @@ function ExerciseScreen() {
                 style={styles.ListExercise}
                 data={exercisesData}
                 renderItem={renderExerciseItem}
-                keyExtractor={item => `${item.id}`}
+                keyExtractor={item => `${item._id}`}
                 showsVerticalScrollIndicator={false}>
             </FlatList>
 

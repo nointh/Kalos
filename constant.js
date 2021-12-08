@@ -2,7 +2,7 @@ import {
     Dimensions,
     StatusBar
   } from 'react-native';
-
+export const _EXAMPLE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThmMzMxNTU3YTkyMDY0ZDIyMzc1YWQiLCJpYXQiOjE2Mzg4NzI2MDV9.BVNpiZ-bBUpQ_8utKgHywhok4jYFy_MZ4CQvREMrYRI';
 export const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 export const SCREEN_HEIGHT = Dimensions.get('window').height;

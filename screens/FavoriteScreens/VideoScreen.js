@@ -13,6 +13,7 @@ function VideoScreen({route})
 // function VideoScreen(props)
 {
     var videoData = route?route.params: null;
+    console.log(videoData);
     return (
         <View style = {styles.container}>
             <View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
@@ -29,7 +30,7 @@ function VideoScreen({route})
             // paused = {props.isPaused? false: props.isPaused}
             />
             <View style = {styles.titleContainer}>
-                <Text style={[{flex: 0.75}, styles.titleText]}>Hướng dẫn hít đất dành cho người mới bắt đầu</Text>
+                <Text style={[{flex: 0.75}, styles.titleText]}>{videoData.title}</Text>
                 {/* <Icon style={{flex: 0.25}}
                 name="heart"
                 solid
