@@ -71,7 +71,7 @@ function FavoriteVideoScreen({navigation})
             <View style = {styles.header}>
                 <Text style = {styles.headerText}>Video yêu thích</Text>
             </View>
-            // favorite video list
+            {/* // favorite video list */}
             <FlatList
             vertical
             showsVerticalScrollIndicator={false}

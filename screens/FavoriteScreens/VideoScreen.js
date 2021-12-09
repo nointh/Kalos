@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
     View,
     StyleSheet,
@@ -8,18 +8,27 @@ import Video from 'react-native-video'
 import {COLOR, SCREEN_WIDTH} from '../../constant'
 import {Icon} from 'react-native-elements';
 import HeartButton from '../../components/HeartButton';
+import YoutubePlayer, {YoutubeIframeRef} from 'react-native-youtube-iframe';
+
+function youtube_parser(url){
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return (match&&match[7].length==11)? match[7] : false;
+}
 
 function VideoScreen({route})
 // function VideoScreen(props)
 {
     var videoData = route?route.params: null;
+    const playerRef = useRef()
     console.log(videoData);
+    console.log(youtube_parser(videoData.videoUrl));
     return (
         <View style = {styles.container}>
             <View style={{height: 100, justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={styles.titleText}>Video</Text>
             </View>
-            <Video
+            {/* <Video
             source={{uri: videoData.videoUrl}}
             // source={{uri: props.videoUrl}}
             style = {{width: SCREEN_WIDTH, height: 300}}
@@ -28,7 +37,15 @@ function VideoScreen({route})
             volume = {1}
             playInBackground = {false}
             // paused = {props.isPaused? false: props.isPaused}
+            /> */}
+            <YoutubePlayer
+            ref={playerRef}
+            height={230}
+            width={SCREEN_WIDTH}
+            videoId={youtube_parser(videoData.videoUrl)}
             />
+            
+
             <View style = {styles.titleContainer}>
                 <Text style={[{flex: 0.75}, styles.titleText]}>{videoData.title}</Text>
                 {/* <Icon style={{flex: 0.25}}
